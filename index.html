@@ -21,6 +21,10 @@
       let x1 = 100;
       let y1 = 150;
 
+      //coordenadas da posição do segundo elemento
+      let x2 = 100;
+      let y2 = 150;
+
       let angulo = 0;
 
       let t0; //tempo inicial
@@ -37,16 +41,20 @@
         cpx.fillStyle = "black";
         cpx.fillRect(0, 0, canvas.width, canvas.height);
 
-        // desenha elemento
+        // desenha primeiro elemento
         cpx.fillStyle = "white";
         cpx.fillRect(x1, y1, 20, 20);
+    
+        //atualiza estados do primeiro elemento
+         x1 = x1 + 10 * dt; 
+        angulo = angulo + 2 * Math.PI * dt;
+        y1 = 100 + 100 * Math.cos(angulo);
 
-        //atualiza estados do elemento
+        // desenha segundo elemento
+        cpx.fillStyle = "red";
+        cpx.fillRect(x2, y2, 20, 20);
 
-        x1 = x1 + 10 * dt; // faz com que o elemento se mova 10px por segundo no eixo x
-        angulo = angulo + 2 *Math.PI * dt;
-        y1 = 100 + 100 *Math.cos(angulo);
-        
+       
 
         requestAnimationFrame(desenha);
 
