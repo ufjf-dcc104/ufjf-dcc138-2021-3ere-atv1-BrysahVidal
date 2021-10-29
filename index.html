@@ -13,15 +13,25 @@
     <script>
       let canvas = document.querySelector("canvas");
       let cpx = canvas.getContext("2d");
-      
+      // proporções do fundo
       canvas.width = 400;
       canvas.height = 320;
-      
 
-      // desenha fundo
-      cpx.fillStyle = "black";
-      cpx.fillRect(0, 0, canvas.width, canvas.height);
+      //coordenadas da posição do primeiro elemento
+      let x1 = 100;
+      let y1 = 150;
 
+      desenha();
+
+      function desenha() {
+        // desenha fundo
+        cpx.fillStyle = "black";
+        cpx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // desenha elemento
+        cpx.fillStyle = "white";
+        cpx.fillRect(x1, y1, 20, 20);
+      }
     </script>
   </body>
 </html>
