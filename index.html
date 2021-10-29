@@ -25,7 +25,9 @@
       let x2 = 100;
       let y2 = 150;
 
-      let angulo = 0;
+      let a = 0;
+      let a2 = 0;
+    
 
       let t0; //tempo inicial
       let dt; // diferença de tempo do quadro anterior
@@ -35,7 +37,7 @@
       function desenha(tempo) {
         //if (t0 === undefined ) t0 = tempo;
         t0 = t0 ?? tempo;
-        dt = (tempo - t0) / 1000; //diferença em segundos
+        dt = (tempo - t0)/1000; //diferença em segundos
 
         // desenha fundo
         cpx.fillStyle = "black";
@@ -46,18 +48,21 @@
         cpx.fillRect(x1, y1, 20, 20);
     
         //atualiza estados do primeiro elemento
-         x1 = x1 + 10 * dt; 
-        angulo = angulo + 2 * Math.PI * dt;
-        y1 = 100 + 100 * Math.cos(angulo);
+        x1 = x1 + 10 * dt;        
+        a = a + 2*Math.PI*dt;
+        y1 = 100 + 100*Math.cos(a); 
 
         // desenha segundo elemento
         cpx.fillStyle = "red";
         cpx.fillRect(x2, y2, 20, 20);
 
-       
+       // atualiza estados segundo elemento
+        y2 = y2 + 10 * dt;        
+        a2 = a2 + 2*Math.PI*dt;
+        x2 = 100 + 100*Math.cos(a2); 
+
 
         requestAnimationFrame(desenha);
-
         t0 = tempo;
       }
     </script>
