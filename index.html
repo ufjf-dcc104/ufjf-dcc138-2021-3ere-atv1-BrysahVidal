@@ -40,7 +40,10 @@
         cpx.fillRect(x1, y1, 20, 20);
 
         //atualiza estados do elemento
+
         x1 = x1 + 10 * dt; // faz com que o elemento se mova 10px por segundo no eixo x
+        y1 = 100 + 1500 *Math.cos(tempo/200) * dt;
+        
 
         requestAnimationFrame(desenha);
 
