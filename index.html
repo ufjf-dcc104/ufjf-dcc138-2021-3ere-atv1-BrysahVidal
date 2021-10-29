@@ -21,6 +21,8 @@
       let x1 = 100;
       let y1 = 150;
 
+      let angulo = 0;
+
       let t0; //tempo inicial
       let dt; // diferença de tempo do quadro anterior
 
@@ -42,7 +44,8 @@
         //atualiza estados do elemento
 
         x1 = x1 + 10 * dt; // faz com que o elemento se mova 10px por segundo no eixo x
-        y1 = 100 + 1500 *Math.cos(tempo/200) * dt;
+        angulo = angulo + 2 *Math.PI * dt;
+        y1 = 100 + 100 *Math.cos(angulo);
         
 
         requestAnimationFrame(desenha);
