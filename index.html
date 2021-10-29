@@ -21,9 +21,12 @@
       let x1 = 100;
       let y1 = 150;
 
-      desenha();
+      //tempo inicial
+      let t0;
 
-      function desenha() {
+      requestAnimationFrame(desenha);
+
+      function desenha(tempo) {
         // desenha fundo
         cpx.fillStyle = "black";
         cpx.fillRect(0, 0, canvas.width, canvas.height);
@@ -31,6 +34,10 @@
         // desenha elemento
         cpx.fillStyle = "white";
         cpx.fillRect(x1, y1, 20, 20);
+
+        requestAnimationFrame(desenha);
+        
+        t0 = tempo;
       }
     </script>
   </body>
