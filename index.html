@@ -45,6 +45,17 @@
             };
             sprites.push(e);
         }
+        let o = {
+            x: 200,
+            vx: 0,
+            ax: 0,
+            y: 150,
+            vy: 0,
+            ay: 0,
+            cor: "blue",
+            desenhar: desenharElemento,
+        };
+        sprites.push(o);
       const K = 180;
       let t0; //tempo inicial
       let dt; // diferença de tempo do quadro anterior
@@ -65,8 +76,8 @@
 
         for (let s = 0; s < sprites.length; s++) {
                 const sprite = sprites[s];
-                sprite.controlar(p);
-                sprite.mover();
+                sprite.controlar?.(p);
+                sprite.mover?.();
                 sprite.desenhar();
             }
 
