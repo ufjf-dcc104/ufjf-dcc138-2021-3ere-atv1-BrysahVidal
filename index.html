@@ -25,9 +25,11 @@
       let vx = 0;
       let vy = 0;
 
-      let a = 0;
+      //aceleração
+      let ax = 0;
+      let ay = 0;
       
-      const V = 180;
+      const K = 180;
       let t0; //tempo inicial
       let dt; // diferença de tempo do quadro anterior
 
@@ -43,8 +45,8 @@
         cpx.fillRect(0, 0, canvas.width, canvas.height);
     
         //atualiza estados do primeiro elemento
-        x1 = x1 + vy * dt; 
-        y1 = y1 + vy * dt;
+        x1 = x1 + ay * dt; 
+        y1 = y1 + ay * dt;
 
          // desenha primeiro elemento
          cpx.fillStyle = "white";
@@ -61,16 +63,16 @@
         console.log(e.key);
         switch (e.key) {
           case "ArrowUp":
-            vy = -V;
+            ay = -K;
             break;
           case "ArrowDown":
-            vy = +V;
+            ay = +K;
             break;
           case "ArrowLeft":
-            vx = -V;
+            ax = -K;
             break;
           case "ArrowRight":
-            vx = +V;
+            ax = +K;
             break;
 
         }
@@ -80,15 +82,19 @@
             switch (e.key) {
                 case "ArrowUp":
                     vy = 0;
+                    ay = 0;
                     break;
                 case "ArrowDown":
                     vy = 0;
+                    ay = 0;
                     break;
                 case "ArrowLeft":
                     vx = 0;
+                    ax = 0;
                     break;
                 case "ArrowRight":
                     vx = 0;
+                    ax = 0;
                     break;
             }
           }
