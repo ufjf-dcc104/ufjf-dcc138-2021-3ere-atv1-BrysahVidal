@@ -25,37 +25,45 @@
         vy: 0,
         ay: 0,
         cor: "white",
-            desenhar: desenharElemento,
-            mover: moverElemento
+        desenhar: desenharElemento,
+        mover: moverElemento,
       };
 
       const sprites = [];
-        for (let ne = 0; ne < 20; ne++) {
-            let e = {
-                x: canvas.width * Math.random(),
-                vx: 0,
-                ax: 0,
-                y: canvas.height * Math.random(),
-                vy: 0,
-                ay: 0,
-                cor: "red",
-                desenhar: desenharElemento,
-                mover: moverElemento,
-                controlar: perseguirAlvo
-            };
-            sprites.push(e);
-        }
-        let o = {
-            x: 200,
-            vx: 0,
-            ax: 0,
-            y: 150,
-            vy: 0,
-            ay: 0,
-            cor: "blue",
-            desenhar: desenharElemento,
+      for (let ne = 0; ne < 20; ne++) {
+        let e = {
+          x: canvas.width * Math.random(),
+          vx: 0,
+          ax: 0,
+          y: canvas.height * Math.random(),
+          vy: 0,
+          ay: 0,
+          cor: "red",
+          desenhar: desenharElemento,
+          mover: moverElemento,
+          controlar: perseguirAlvo,
         };
-        sprites.push(o);
+        sprites.push(e);
+      }
+      let o = {
+        x: -1000,
+        vx: 0,
+        ax: 0,
+        y: 150,
+        vy: 0,
+        ay: 0,
+        cor: "blue",
+        desenhar: desenharElemento,
+        mover: moverElemento,
+        controlar: function () {
+          if (this.x > canvas.width + 60) {
+            this.x = -1000;
+            this.ax = 0;
+            this.vx = 0;
+          }
+        },
+      };
+      sprites.push(o);
       const K = 180;
       let t0; //tempo inicial
       let dt; // diferença de tempo do quadro anterior
@@ -75,36 +83,35 @@
         p.desenhar();
 
         for (let s = 0; s < sprites.length; s++) {
-                const sprite = sprites[s];
-                sprite.controlar?.(p);
-                sprite.mover?.();
-                sprite.desenhar();
-            }
-
+          const sprite = sprites[s];
+          sprite.controlar?.(p);
+          sprite.mover?.();
+          sprite.desenhar();
+        }
 
         requestAnimationFrame(desenha);
         t0 = tempo;
       }
       function moverElemento() {
-            this.vx = this.vx + this.ax * dt;
-            this.x = this.x + this.vx * dt;
-            this.vy = this.vy + this.ay * dt;
-            this.y = this.y + this.vy * dt;
-        }
+        this.vx = this.vx + this.ax * dt;
+        this.x = this.x + this.vx * dt;
+        this.vy = this.vy + this.ay * dt;
+        this.y = this.y + this.vy * dt;
+      }
 
-        function desenharElemento() {
-            ctx.fillStyle = this.cor;
-            ctx.fillRect(this.x, this.y, 20, 20);
-        }
-        function perseguirAlvo(alvo) {
-            this.ax = 0.5 * (alvo.x - this.x) - 0.2 * this.vx;
-            this.ay = 0.5 * (alvo.y - this.y) - 0.2 * this.vy;
-        }
+      function desenharElemento() {
+        ctx.fillStyle = this.cor;
+        ctx.fillRect(this.x, this.y, 20, 20);
+      }
+      function perseguirAlvo(alvo) {
+        this.ax = 0.5 * (alvo.x - this.x) - 0.2 * this.vx;
+        this.ay = 0.5 * (alvo.y - this.y) - 0.2 * this.vy;
+      }
 
-        function evitarAlvo(alvo) {
-            this.ax = -0.5 * (alvo.x - this.x) - 0.2 * this.vx;
-            this.ay = -0.5 * (alvo.y - this.y) - 0.2 * this.vy;
-        }
+      function evitarAlvo(alvo) {
+        this.ax = -0.5 * (alvo.x - this.x) - 0.2 * this.vx;
+        this.ay = -0.5 * (alvo.y - this.y) - 0.2 * this.vy;
+      }
       addEventListener("keydown", teclaPressionada);
       addEventListener("keyup", teclaSolta);
 
@@ -140,6 +147,14 @@
             break;
           case "ArrowRight":
             p.ax = 0;
+            break;
+          case " ":
+            if (o.x === -1000) {
+              o.x = p.x;
+              o.y = p.y;
+              o.vx = 200;
+              o.ax = 100;
+            }
             break;
         }
       }
