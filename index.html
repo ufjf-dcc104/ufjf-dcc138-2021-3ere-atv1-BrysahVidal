@@ -21,14 +21,12 @@
       let x1 = 100;
       let y1 = 150;
 
-      //coordenadas da posição do segundo elemento
-      let x2 = 100;
-      let y2 = 150;
+      //velocidades
+      let vx = 0;
+      let vy = 0;
 
       let a = 0;
-      let a2 = 0;
-    
-
+  
       let t0; //tempo inicial
       let dt; // diferença de tempo do quadro anterior
 
@@ -42,28 +40,38 @@
         // desenha fundo
         cpx.fillStyle = "black";
         cpx.fillRect(0, 0, canvas.width, canvas.height);
-
-        // desenha primeiro elemento
-        cpx.fillStyle = "white";
-        cpx.fillRect(x1, y1, 20, 20);
     
         //atualiza estados do primeiro elemento
-        x1 = x1 + 10 * dt;        
-        a = a + 2*Math.PI*dt;
-        y1 = 100 + 100*Math.cos(a); 
+        x1 = x1 + vy * dt; 
+        y1 = y1 + vy * dt;
 
-        // desenha segundo elemento
-        cpx.fillStyle = "red";
-        cpx.fillRect(x2, y2, 20, 20);
-
-       // atualiza estados segundo elemento
-        y2 = y2 + 10 * dt;        
-        a2 = a2 + 2*Math.PI*dt;
-        x2 = 100 + 100*Math.cos(a2); 
-
+         // desenha primeiro elemento
+         cpx.fillStyle = "white";
+         cpx.fillRect(x1, y1, 20, 20);
 
         requestAnimationFrame(desenha);
         t0 = tempo;
+      }
+      function teclaPressionada(e) {
+        // controle de velocidades
+        console.log(e.key);
+        switch (e.key) {
+          case "ArrowUp":
+            vy = -20;
+            break;
+          case "ArrowDown":
+            vy = +20;
+            break;
+          case "ArrowLeft":
+            vx = -20;
+            break;
+          case "ArrowRight":
+            vx = +20;
+            break;
+
+          default:
+            break;
+        }
       }
     </script>
   </body>
