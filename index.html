@@ -52,6 +52,9 @@
         requestAnimationFrame(desenha);
         t0 = tempo;
       }
+      addEventListener("keydown", teclaPressionada);
+      addEventListener("keyup", teclaSolta);
+
       function teclaPressionada(e) {
         // controle de velocidades
         console.log(e.key);
@@ -69,10 +72,25 @@
             vx = +20;
             break;
 
-          default:
-            break;
         }
       }
+      function teclaSolta(e) {
+            console.log(e.key);
+            switch (e.key) {
+                case "ArrowUp":
+                    vy = 0;
+                    break;
+                case "ArrowDown":
+                    vy = 0;
+                    break;
+                case "ArrowLeft":
+                    vx = 0;
+                    break;
+                case "ArrowRight":
+                    vx = 0;
+                    break;
+            }
+          }
     </script>
   </body>
 </html>
