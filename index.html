@@ -12,23 +12,27 @@
     <p>por Brysah Vidal</p>
     <script>
       let canvas = document.querySelector("canvas");
-      let cpx = canvas.getContext("2d");
+      let ctx = canvas.getContext("2d");
       // proporções do fundo
       canvas.width = 400;
       canvas.height = 320;
 
-      //coordenadas da posição do primeiro elemento
-      let x1 = 100;
-      let y1 = 150;
-
-      //velocidades
+      // primeiro elemento
+      let x = 100;
+      let y = 150;
       let vx = 0;
       let vy = 0;
-
-      //aceleração
       let ax = 0;
       let ay = 0;
       
+      //segundo elemento
+       let ex = 300;
+        let evx = 0;
+        let eax = 0;
+        let ey = 200;
+        let evy = 0;
+        let eay = 0;
+
       const K = 180;
       let t0; //tempo inicial
       let dt; // diferença de tempo do quadro anterior
@@ -41,16 +45,30 @@
         dt = (tempo - t0)/1000; //diferença em segundos
 
         // desenha fundo
-        cpx.fillStyle = "black";
-        cpx.fillRect(0, 0, canvas.width, canvas.height);
-    
-        //atualiza estados do primeiro elemento
-        x1 = x1 + ay * dt; 
-        y1 = y1 + ay * dt;
+        ctx.fillStyle = "black";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-         // desenha primeiro elemento
-         cpx.fillStyle = "white";
-         cpx.fillRect(x1, y1, 20, 20);
+        //controladores
+        eax = 0.5 * (x - ex) - 0.2 * evx;
+        eay = 0.5 * (y - ey) - 0.2 * evy;
+    
+        //atualiza estados 
+        vx = vx + ax * dt;
+        x = x + vx * dt;
+        vy = vy + ay * dt;
+        y = y + vy * dt;
+
+        evx = evx + eax*dt;
+        ex = ex + evx * dt;
+        evy = evy + eay*dt;
+        ey = ey + evy * dt;
+
+         // desenha elementos
+         ctx.fillStyle = "white";
+         ctx.fillRect(x, y, 20, 20);
+
+         ctx.fillStyle = "red";
+         ctx.fillRect(ex, ey, 20, 20);
 
         requestAnimationFrame(desenha);
         t0 = tempo;
